@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Strategy — X & Substack | Crypto Macro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080808;
+      --surface:   #101010;
+      --surface-2: #161616;
+      --surface-3: #1e1e1e;
+      --border:    #242424;
+      --border-b:  #333;
+      --accent:    #F5C400;
+      --accent-lo: rgba(245,196,0,0.10);
+      --glow:      0 0 18px rgba(245,196,0,0.22);
+      --t1:        #F0EEE8;
+      --t2:        #767472;
+      --t3:        #3c3c3c;
+      --red:       #D95050;
+      --red-bg:    rgba(217,80,80,0.09);
+      --grn:       #22A07A;
+      --grn-bg:    rgba(34,160,122,0.09);
+      --blu:       #4190C8;
+      --blu-bg:    rgba(65,144,200,0.09);
+      --org:       #C07718;
+      --org-bg:    rgba(192,119,24,0.09);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--t1);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      height: 46px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 9px;
+      font-weight: 700; font-size: 12px;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .topbar-meta {
+      font-family:'DM Mono',monospace;
+      font-size: 11px; color: var(--t2);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 52px 28px 36px;
+      max-width: 1120px; margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .eyebrow {
+      font-family:'DM Mono',monospace;
+      font-size: 10px; letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: 44px; font-weight: 700;
+      line-height: 1.08; margin-bottom: 14px;
+    }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero-sub {
+      font-size: 14px; color: var(--t2);
+      max-width: 600px;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 22px;
+    }
+    .hero-tag {
+      font-family:'DM Mono',monospace;
+      font-size: 10px; padding: 4px 12px;
+      border: 1px solid var(--border-b);
+      border-radius: 20px;
+      color: var(--t2);
+    }
+
+    /* ── LAYOUT WRAP ── */
+    .content {
+      max-width: 1120px; margin: 0 auto;
+      padding: 28px 28px 80px;
+    }
+
+    /* ── TABS ── */
+    .tab-row {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 32px;
+    }
+    .tab {
+      padding: 8px 18px;
+      border-radius: 22px;
+      font-size: 12px; font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border-b);
+      color: var(--t2);
+      background: transparent;
+      font-family:'Space Grotesk',sans-serif;
+      transition: all .15s;
+    }
+    .tab:hover { border-color: var(--accent); color: var(--accent); }
+    .tab.active {
+      background: var(--accent);
+      color: #080808;
+      border-color: var(--accent);
+      font-weight: 700;
+      box-shadow: var(--glow);
+    }
+
+    /* ── PANELS ── */
+    .tf-panel { display: none; }
+    .tf-panel.active { display: block; }
+
+    /* ── SECTION TITLE ── */
+    .sec {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent);
+      margin: 32px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sec:first-child { margin-top: 0; }
+
+    /* ── GRIDS ── */
+    .g2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+    .g3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
+    .g4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+
+    @media(max-width:780px) {
+      .g2,.g3,.g4 { grid-template-columns:1fr; }
+      .hero h1 { font-size:30px; }
+    }
+    @media(min-width:781px) and (max-width:1000px) {
+      .g3 { grid-template-columns:1fr 1fr; }
+      .g4 { grid-template-columns:1fr 1fr; }
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+      transition: border-left-color .2s;
+    }
+    .card:hover { border-left-color: var(--accent); }
+
+    .ct {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      color: var(--t1);
+      margin-bottom: 10px;
+    }
+
+    /* ── LIST ROWS ── */
+    .row {
+      font-size: 12px; color: var(--t2);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 8px;
+    }
+    .row:last-child { border-bottom: none; }
+
+    /* ── TAGS ── */
+    .tag {
+      font-size: 10px; padding: 2px 8px;
+      border-radius: 4px; white-space: nowrap;
+      font-weight: 600; flex-shrink: 0;
+      font-family:'DM Mono',monospace;
+    }
+    .hot { background:var(--red-bg); color:var(--red); }
+    .med { background:var(--org-bg); color:var(--org); }
+    .cool{ background:var(--grn-bg); color:var(--grn); }
+    .info{ background:var(--blu-bg); color:var(--blu); }
+    .neu { background:var(--surface-3); color:var(--t2); }
+
+    /* ── EXAMPLE BOX ── */
+    .ebox {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 12px 14px;
+      margin: 8px 0;
+    }
+    .elabel {
+      font-family:'DM Mono',monospace;
+      font-size: 9px; letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 7px;
+    }
+    .econtent {
+      font-family:'DM Mono',monospace;
+      font-size: 12px; color: var(--t1);
+      line-height: 1.75;
+      white-space: pre-line;
+    }
+
+    /* ── THREAD STEPS ── */
+    .thread { display:flex; flex-direction:column; gap:10px; }
+    .tstep { display:flex; gap:12px; }
+    .snum {
+      width:24px; height:24px; border-radius:50%;
+      background: var(--accent);
+      color: #080808;
+      font-family:'DM Mono',monospace;
+      font-size:10px; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; margin-top:2px;
+    }
+    .sbody { flex:1; }
+    .stitle {
+      font-size:12px; font-weight:600;
+      color: var(--t1); margin-bottom:3px;
+    }
+    .stext {
+      font-size:12px; color:var(--t2);
+      font-style:italic; line-height:1.6;
+    }
+
+    /* ── VIRAL CALLOUT ── */
+    .viral {
+      background: var(--accent-lo);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 5px 5px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+    }
+    .vt {
+      font-size:11px; font-weight:700;
+      color:var(--accent); margin-bottom:4px;
+    }
+    .vt + p { font-size:12px; color:var(--t2); line-height:1.6; }
+
+    /* ── CHECKLIST ── */
+    .chk { list-style:none; padding:0; }
+    .chk li {
+      font-size:12px; color:var(--t2);
+      padding:5px 0;
+      border-bottom:1px solid var(--border);
+      display:flex; gap:8px; align-items:flex-start;
+    }
+    .chk li:last-child { border-bottom:none; }
+    .arr { color:var(--accent); font-family:'DM Mono',monospace; flex-shrink:0; }
+
+    /* ── PILLAR LABEL ── */
+    .plabel {
+      font-family:'DM Mono',monospace;
+      font-size:9px; letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--accent);
+      margin-bottom:5px;
+    }
+
+    /* ── HIGHLIGHT ── */
+    .yl {
+      color: var(--accent);
+      font-size:10px;
+      display:block;
+      margin-top:6px;
+    }
+
+    /* ── NOTE ── */
+    .note {
+      font-size:11px; color:var(--t2);
+      margin-top:7px; line-height:1.5;
+    }
+
+    /* ── SECTION CARD (full-width card wrapper) ── */
+    .scard {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:6px;
+      padding:16px 18px;
+      margin-bottom:12px;
+    }
+
+    /* ── SPACER ── */
+    .mtsm { margin-top:12px; }
+
+    /* ── POSITIONING QUOTE ── */
+    .quote-card {
+      background:var(--surface-2);
+      border:1px solid var(--border-b);
+      border-left:3px solid var(--accent);
+      border-radius:6px;
+      padding:16px 20px;
+      font-family:'DM Mono',monospace;
+      font-size:13px;
+      line-height:1.75;
+      color:var(--t1);
+      margin: 8px 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align:center;
+      padding:24px;
+      font-family:'DM Mono',monospace;
+      font-size:11px;
+      color:var(--t3);
+      border-top:1px solid var(--border);
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:var(--border-b); border-radius:3px; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<nav class="topbar">
+  <div class="brand">
+    <div class="live-dot"></div>
+    Crypto Macro Hub
+  </div>
+  <div class="topbar-meta">X &amp; Substack Strategy · v1.0</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="eyebrow">Content Strategy Playbook — Crypto Macro Analyst</div>
+  <h1>X &amp; <em>Substack</em><br>Content Strategy</h1>
+  <p class="hero-sub">Positioning: Crypto Macro Analyst · Data-driven · Institutional quality untuk audience retail &amp; semi-pro</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Fed &amp; Macro</span>
+    <span class="hero-tag">Net Liquidity</span>
+    <span class="hero-tag">BTC Analysis</span>
+    <span class="hero-tag">Bahasa Indonesia</span>
+    <span class="hero-tag">Exchange-Grade Research</span>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="content">
+
+  <div class="tab-row">
+    <button class="tab active" onclick="showTab('positioning',this)">🎯 Positioning</button>
+    <button class="tab" onclick="showTab('x_daily',this)">𝕏 X Daily</button>
+    <button class="tab" onclick="showTab('x_threads',this)">🧵 Thread Templates</button>
+    <button class="tab" onclick="showTab('substack',this)">📰 Substack</button>
+    <button class="tab" onclick="showTab('calendar',this)">📅 Content Calendar</button>
+    <button class="tab" onclick="showTab('growth',this)">🚀 Growth Tips</button>
+  </div>
+
+  <!-- ══════════════ POSITIONING ══════════════ -->
+  <div class="tf-panel active" id="panel-positioning">
+
+    <div class="sec">Siapa kamu di mata audience — differentiator utama</div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct">Positioning Statement</div>
+        <div class="elabel" style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:7px">Bio X / Substack Tagline</div>
+        <div class="quote-card">"Crypto Macro Analyst — menerjemahkan Fed, M2, dan likuiditas global ke dalam sinyal BTC yang bisa dipakai. Exchange-grade research, bahasa manusia."</div>
+        <p class="note">Yang membedakan kamu: bisa jelaskan SOFR-IORB dalam bahasa yang dimengerti trader retail. Itu <strong style="color:var(--accent)">rare.</strong></p>
+      </div>
+      <div class="card">
+        <div class="ct">Target Audience</div>
+        <div class="row"><span>Crypto trader aktif yang mau naik level</span><span class="tag hot">Primary</span></div>
+        <div class="row"><span>Investor BTC jangka menengah-panjang</span><span class="tag hot">Primary</span></div>
+        <div class="row"><span>Finance student / fresh grad finance</span><span class="tag med">Secondary</span></div>
+        <div class="row"><span>Exchange &amp; crypto company employee</span><span class="tag med">Secondary</span></div>
+        <div class="row"><span>Retail yang mau paham macro dasar</span><span class="tag cool">Tertiary</span></div>
+      </div>
+    </div>
+
+    <div class="sec">5 Content Pillars — fondasi semua konten kamu</div>
+    <div class="g3">
+      <div class="card">
+        <div class="plabel">Pillar 1</div>
+        <div class="ct">💧 Liquidity Watch</div>
+        <div class="row"><span>Net Liquidity update mingguan</span></div>
+        <div class="row"><span>TGA / RRP / WALCL movement</span></div>
+        <div class="row"><span>M2 global trend</span></div>
+        <span class="yl">"Sinyal likuiditas yang trader institusi pantau"</span>
+      </div>
+      <div class="card">
+        <div class="plabel">Pillar 2</div>
+        <div class="ct">🏦 Fed Decoder</div>
+        <div class="row"><span>FOMC preview &amp; recap</span></div>
+        <div class="row"><span>Terjemahan dot plot ke bahasa biasa</span></div>
+        <div class="row"><span>Powell speech key quotes</span></div>
+        <span class="yl">"Apa yang Fed katakan vs apa artinya"</span>
+      </div>
+      <div class="card">
+        <div class="plabel">Pillar 3</div>
+        <div class="ct">📊 Chart Breakdown</div>
+        <div class="row"><span>Chart makro + crypto disandingkan</span></div>
+        <div class="row"><span>Support/resistance heatmap</span></div>
+        <div class="row"><span>Z-score positioning visual</span></div>
+        <span class="yl">"Satu chart, satu insight yang jelas"</span>
+      </div>
+      <div class="card">
+        <div class="plabel">Pillar 4</div>
+        <div class="ct">🎓 Macro Education</div>
+        <div class="row"><span>Explain indikator yang jarang dibahas</span></div>
+        <div class="row"><span>Sejarah siklus ekonomi vs BTC</span></div>
+        <div class="row"><span>Istilah teknis dalam bahasa biasa</span></div>
+        <span class="yl">"Content yang di-save dan di-share"</span>
+      </div>
+      <div class="card">
+        <div class="plabel">Pillar 5</div>
+        <div class="ct">🔥 Hot Takes &amp; Opinion</div>
+        <div class="row"><span>Pendapat tajam tentang data terbaru</span></div>
+        <div class="row"><span>Counter-narrative yang berdasar data</span></div>
+        <div class="row"><span>Respond ke berita besar dengan data</span></div>
+        <span class="yl">"Content yang memancing diskusi"</span>
+      </div>
+      <div class="card">
+        <div class="plabel">Bonus Pillar</div>
+        <div class="ct">🔬 Behind the Research</div>
+        <div class="row"><span>Cara kamu baca data / workflow</span></div>
+        <div class="row"><span>Tools yang kamu pakai</span></div>
+        <div class="row"><span>Proses membuat analisa</span></div>
+        <span class="yl">"Build in public — audience suka ini"</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ X DAILY ══════════════ -->
+  <div class="tf-panel" id="panel-x_daily">
+
+    <div class="sec">Format post X harian — sesuai jenis hari</div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct">Senin — Weekly Macro Setup</div>
+        <div class="ebox">
+          <div class="elabel">Format</div>
+          <div class="econtent">Net Liquidity minggu lalu: [angka]
+Perubahan: [+/−$XB]
+Signal score: [+X/−X]
+
+3 hal yang perlu dipantau minggu ini:
+→ [Event 1]
+→ [Event 2]
+→ [Event 3]
+
+Bias: [Bullish/Neutral/Bearish] untuk BTC</div>
+        </div>
+        <p class="note">Sertakan chart Net Liquidity vs BTC. Ini jadi "anchor" weekly kamu.</p>
+      </div>
+      <div class="card">
+        <div class="ct">Selasa — Chart of the Day</div>
+        <div class="ebox">
+          <div class="elabel">Format</div>
+          <div class="econtent">Chart yang 90% orang tidak pantau:
+
+[Nama indikator] sedang menunjukkan [kondisi].
+
+Terakhir kali ini terjadi → [historis + apa yang terjadi ke BTC]
+
+Implikasinya untuk sekarang: [1-2 kalimat tajam]</div>
+        </div>
+        <p class="note">Pilih chart yang menarik tapi jarang dibahas. SOFR-IORB, reserve ratio, TGA — bukan CPI yang semua orang bahas.</p>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct">Rabu — Education Post</div>
+        <div class="ebox">
+          <div class="elabel">Format</div>
+          <div class="econtent">Banyak yang salah paham soal [istilah/konsep].
+
+Thread singkat:
+
+[Istilah] bukan berarti [misconception].
+
+Yang sebenarnya terjadi: [penjelasan singkat]
+
+Kenapa ini penting untuk BTC: [1 kalimat]
+
+Save ini untuk referensi 🧵</div>
+        </div>
+        <p class="note">Contoh topik: "Apa itu real yield vs nominal yield", "Kenapa NFP tidak bisa langsung dikorelasi dengan BTC"</p>
+      </div>
+      <div class="card">
+        <div class="ct">Kamis — Data Drop</div>
+        <div class="ebox">
+          <div class="elabel">Format</div>
+          <div class="econtent">📊 Data terbaru:
+
+[Indikator]: [nilai] vs ekspektasi [nilai]
+Previous: [nilai]
+
+Interpretasi:
+→ Untuk Fed: [dampak ke kebijakan]
+→ Untuk BTC: [implikasi jangka pendek]
+→ Untuk BTC: [implikasi jangka menengah]
+
+Kesimpulan: [1 kalimat bold]</div>
+        </div>
+        <p class="note">Pakai setelah data release: CPI, NFP, JOLTS, PCE, PMI. Speed penting — publish dalam 30 menit setelah release.</p>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct">Jumat — Weekly Recap</div>
+        <div class="ebox">
+          <div class="elabel">Format</div>
+          <div class="econtent">Weekly macro recap 🧵
+
+Minggu ini dalam 5 poin:
+1/ [Point terpenting — likuiditas]
+2/ [Point kedua — Fed/rates]
+3/ [Point ketiga — crypto specific]
+4/ [Point keempat — chart kunci]
+5/ [Outlook minggu depan]
+
+Bias berubah dari [X] ke [Y] karena [alasan]</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct">Sabtu/Minggu — Big Picture</div>
+        <div class="ebox">
+          <div class="elabel">Format</div>
+          <div class="econtent">Weekend adalah waktu berpikir, bukan bereaksi.
+
+Pertanyaan besar yang sedang kita hadapi:
+
+[Pertanyaan makro fundamental]
+
+Data mengatakan: [X]
+Market mempercayai: [Y]
+Yang sering terlupakan: [Z]
+
+Pendapat saya: [opini yang berdasar data]</div>
+        </div>
+        <p class="note">Weekend post lebih panjang boleh. Audience punya waktu lebih banyak untuk baca.</p>
+      </div>
+    </div>
+
+    <div class="sec">Event-Driven Posts — publish secepat mungkin</div>
+    <div class="g3">
+      <div class="card">
+        <div class="ct">Saat CPI / PCE Release</div>
+        <ul class="chk">
+          <li><span class="arr">→</span><span>Angka vs ekspektasi (3 kata)</span></li>
+          <li><span class="arr">→</span><span>Core vs headline — mana yang lebih penting</span></li>
+          <li><span class="arr">→</span><span>Implikasi untuk FOMC berikutnya</span></li>
+          <li><span class="arr">→</span><span>Breakeven inflation berubah?</span></li>
+          <li><span class="arr">→</span><span>BTC immediate reaction vs seharusnya</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ct">Saat FOMC Decision</div>
+        <ul class="chk">
+          <li><span class="arr">→</span><span>Decision vs ekspektasi (langsung)</span></li>
+          <li><span class="arr">→</span><span>Statement language — hawkish/dovish shift?</span></li>
+          <li><span class="arr">→</span><span>Dot plot perubahan vs sebelumnya</span></li>
+          <li><span class="arr">→</span><span>Powell press conference key quotes</span></li>
+          <li><span class="arr">→</span><span>"Apa yang market salah baca" post-facto</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ct">Saat BTC Bergerak Tajam</div>
+        <ul class="chk">
+          <li><span class="arr">→</span><span>Trigger apa? (bukan hanya chart)</span></li>
+          <li><span class="arr">→</span><span>Net Liquidity saat itu kondisinya gimana</span></li>
+          <li><span class="arr">→</span><span>Exchange flow sebelum gerakan</span></li>
+          <li><span class="arr">→</span><span>Ini emosi pasar atau ada fundamental?</span></li>
+          <li><span class="arr">→</span><span>Support/resistance kunci berikutnya</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ THREAD TEMPLATES ══════════════ -->
+  <div class="tf-panel" id="panel-x_threads">
+
+    <div class="sec">Thread templates — format paling viral di X untuk macro analyst</div>
+
+    <div class="scard">
+      <div class="ct">Template 1 — "Indikator yang Tidak Banyak Dibahas" (Education Thread)</div>
+      <div class="thread">
+        <div class="tstep">
+          <div class="snum">1</div>
+          <div class="sbody">
+            <div class="stitle">Hook — buatnya mengejutkan</div>
+            <div class="stext">"99% trader BTC tidak tahu bahwa [nama indikator] adalah salah satu sinyal paling akurat untuk prediksi rally BTC. Thread 🧵"</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">2</div>
+          <div class="sbody">
+            <div class="stitle">Masalah yang ada</div>
+            <div class="stext">"Selama ini kamu mungkin hanya pantau [indikator populer seperti CPI/NFP]. Tapi ada yang lebih penting yang jarang dibahas..."</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">3</div>
+          <div class="sbody">
+            <div class="stitle">Penjelasan konsep (simple)</div>
+            <div class="stext">"Apa itu [indikator]? Analoginya seperti [analogi sederhana]. Intinya mengukur [X]."</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">4</div>
+          <div class="sbody">
+            <div class="stitle">Data historis — bukti</div>
+            <div class="stext">"Lihat data historis ini: setiap kali [kondisi indikator] → BTC [outcome]. Terjadi [X] dari [Y] kali."</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">5</div>
+          <div class="sbody">
+            <div class="stitle">Kondisi sekarang</div>
+            <div class="stext">"Sekarang [indikator] berada di [level]. Artinya: [interpretasi]. Implikasi untuk BTC: [1 kalimat]."</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">6</div>
+          <div class="sbody">
+            <div class="stitle">CTA (Call to Action)</div>
+            <div class="stext">"Follow untuk update indikator ini tiap minggu. Dan RT jika ini berguna untuk yang lain 🙏"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scard">
+      <div class="ct">Template 2 — "Decode Data Release" (Event-Driven Thread)</div>
+      <div class="thread">
+        <div class="tstep">
+          <div class="snum">1</div>
+          <div class="sbody">
+            <div class="stitle">Breaking hook</div>
+            <div class="stext">"🚨 [DATA] baru saja rilis: [angka] vs ekspektasi [angka]. Mari kita bedah apa artinya untuk BTC 🧵"</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">2</div>
+          <div class="sbody">
+            <div class="stitle">Angka actual vs ekspektasi</div>
+            <div class="stext">"Hasil: [X] | Ekspektasi: [Y] | Previous: [Z]. [Hot/Cold/In-line]. Artinya: [2 kalimat]"</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">3</div>
+          <div class="sbody">
+            <div class="stitle">Implikasi untuk Fed</div>
+            <div class="stext">"Untuk Fed: data ini [mendukung/melemahkan] argumen untuk [hike/cut]. Probability rate cut berikutnya sekarang: [X%]"</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">4</div>
+          <div class="sbody">
+            <div class="stitle">Implikasi untuk BTC</div>
+            <div class="stext">"Untuk BTC jangka pendek: [reaksi yang wajar vs overreaction]. Jangka menengah: [implikasi yang lebih dalam]"</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">5</div>
+          <div class="sbody">
+            <div class="stitle">Yang perlu dipantau selanjutnya</div>
+            <div class="stext">"Selanjutnya watch: [event berikutnya] pada [tanggal]. Itu yang akan konfirmasi atau batalkan thesis ini."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scard">
+      <div class="ct">Template 3 — "Counter-Narrative" (High Engagement Thread)</div>
+      <div class="thread">
+        <div class="tstep">
+          <div class="snum">1</div>
+          <div class="sbody">
+            <div class="stitle">Hook kontrarian</div>
+            <div class="stext">"Semua orang bilang [X akan terjadi]. Data saya menunjukkan sebaliknya. Ini kenapa 🧵"</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">2</div>
+          <div class="sbody">
+            <div class="stitle">Acknowledge consensus</div>
+            <div class="stext">"Memang benar bahwa [argumen mainstream]. Dan saya mengerti kenapa banyak yang percaya ini."</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">3-4</div>
+          <div class="sbody">
+            <div class="stitle">Data yang contradicts consensus</div>
+            <div class="stext">"Tapi jika kamu lihat [indikator 1] dan [indikator 2] secara bersamaan, gambarannya berbeda. [Chart atau angka konkret]"</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">5</div>
+          <div class="sbody">
+            <div class="stitle">Thesis kamu</div>
+            <div class="stext">"Thesis saya: [X]. Ini bisa salah jika [kondisi pembatal]. Tapi probabilitasnya lebih tinggi dari yang market pricing saat ini."</div>
+          </div>
+        </div>
+        <div class="tstep">
+          <div class="snum">6</div>
+          <div class="sbody">
+            <div class="stitle">Engagement question</div>
+            <div class="stext">"Setuju atau tidak? Apa data yang kamu lihat berbeda? Drop di reply 👇"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ SUBSTACK ══════════════ -->
+  <div class="tf-panel" id="panel-substack">
+
+    <div class="sec">Substack — format weekly newsletter yang profesional</div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct">Nama Newsletter yang Disarankan</div>
+        <div class="row"><span>"The Liquidity Letter"</span><span class="tag cool">Recommended</span></div>
+        <div class="row"><span>"Macro × Crypto Weekly"</span><span class="tag med">Alternative</span></div>
+        <div class="row"><span>"Net Liquidity Report"</span><span class="tag med">Alternative</span></div>
+        <div class="row"><span>"The BTC Macro Brief"</span><span class="tag med">Alternative</span></div>
+        <p class="note">Pilih nama yang jelas menunjukkan isi + angle. "Liquidity" adalah differentiator kamu.</p>
+      </div>
+      <div class="card">
+        <div class="ct">Model Pricing Substack</div>
+        <div class="row"><span>Free tier — semua konten</span><span class="tag cool">Mulai dari sini</span></div>
+        <div class="row"><span>Paid: Weekly full report</span><span class="tag med">Setelah 500 subs</span></div>
+        <div class="row"><span>Paid: Real-time alerts</span><span class="tag med">Tier premium</span></div>
+        <div class="row"><span>Paid: Quarterly deep dive PDF</span><span class="tag med">Tier tertinggi</span></div>
+        <p class="note">Strategi: 6 bulan gratis untuk build audience, baru monetize.</p>
+      </div>
+    </div>
+
+    <div class="sec">Struktur Weekly Substack Article (standar)</div>
+    <div class="scard">
+      <div class="g3">
+        <div>
+          <div class="ct">Section 1 — TL;DR (300 kata)</div>
+          <ul class="chk">
+            <li><span class="arr">→</span><span>3 poin kunci minggu ini</span></li>
+            <li><span class="arr">→</span><span>Signal score (bullish/bearish)</span></li>
+            <li><span class="arr">→</span><span>1 chart utama</span></li>
+            <li><span class="arr">→</span><span>Bottom line sentence</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="ct">Section 2 — Macro Pulse (500 kata)</div>
+          <ul class="chk">
+            <li><span class="arr">→</span><span>Net Liquidity update + chart</span></li>
+            <li><span class="arr">→</span><span>Key data release recap</span></li>
+            <li><span class="arr">→</span><span>Fed signal interpretation</span></li>
+            <li><span class="arr">→</span><span>Dollar &amp; yield movement</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="ct">Section 3 — Crypto Market (500 kata)</div>
+          <ul class="chk">
+            <li><span class="arr">→</span><span>BTC technical + on-chain</span></li>
+            <li><span class="arr">→</span><span>ETF flows update</span></li>
+            <li><span class="arr">→</span><span>Derivatives positioning</span></li>
+            <li><span class="arr">→</span><span>Altcoin / sector rotation</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="g3 mtsm">
+        <div>
+          <div class="ct">Section 4 — Deep Dive (700 kata)</div>
+          <ul class="chk">
+            <li><span class="arr">→</span><span>Satu topik per minggu in-depth</span></li>
+            <li><span class="arr">→</span><span>Data + chart + analisis</span></li>
+            <li><span class="arr">→</span><span>Historical context</span></li>
+            <li><span class="arr">→</span><span>Trading/investment implication</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="ct">Section 5 — Week Ahead (300 kata)</div>
+          <ul class="chk">
+            <li><span class="arr">→</span><span>Economic calendar highlights</span></li>
+            <li><span class="arr">→</span><span>Crypto events (expiry, etc)</span></li>
+            <li><span class="arr">→</span><span>Key levels to watch</span></li>
+            <li><span class="arr">→</span><span>Scenario analysis</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="ct">Section 6 — Chart Library</div>
+          <ul class="chk">
+            <li><span class="arr">→</span><span>5-7 charts dengan caption</span></li>
+            <li><span class="arr">→</span><span>Net Liquidity vs BTC</span></li>
+            <li><span class="arr">→</span><span>Real yield vs BTC</span></li>
+            <li><span class="arr">→</span><span>BTC S/R heatmap (Python script)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">Special Edition Substack (bulanan / quarterly)</div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct">Monthly Special — "State of Liquidity"</div>
+        <div class="row"><span>Global M2 4-component update</span></div>
+        <div class="row"><span>Net Liquidity 30-hari trend</span></div>
+        <div class="row"><span>MMF flow analysis</span></div>
+        <div class="row"><span>BTC Z-score dashboard</span></div>
+        <div class="row"><span>Macro regime assessment</span></div>
+        <p class="note">Ini jadi "signature piece" yang dibagikan banyak orang.</p>
+      </div>
+      <div class="card">
+        <div class="ct">Quarterly Special — "Macro Thesis Update"</div>
+        <div class="row"><span>4-regime framework update</span></div>
+        <div class="row"><span>Structural risk review (debt, deficit)</span></div>
+        <div class="row"><span>BTC cycle position</span></div>
+        <div class="row"><span>Bull/base/bear scenario</span></div>
+        <div class="row"><span>Probability untuk tiap skenario</span></div>
+        <p class="note">Format PDF juga — bisa dijadikan lead magnet untuk subscriber baru.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ CALENDAR ══════════════ -->
+  <div class="tf-panel" id="panel-calendar">
+
+    <div class="sec">Content Calendar — jadwal ideal per minggu</div>
+    <div class="scard">
+      <div class="g2">
+        <div>
+          <div class="ct">Senin</div>
+          <div class="row"><span>08.00 — Net Liquidity update post (X)</span><span class="tag hot">Wajib</span></div>
+          <div class="row"><span>10.00 — Weekly setup thread (X)</span><span class="tag hot">Wajib</span></div>
+          <div class="row"><span>Sore — Engage dengan reply</span><span class="tag med">Rutin</span></div>
+          <div class="ct mtsm">Selasa</div>
+          <div class="row"><span>09.00 — Chart of the day (X)</span><span class="tag hot">Wajib</span></div>
+          <div class="row"><span>Fleksibel — respond hot topic</span><span class="tag med">Optional</span></div>
+        </div>
+        <div>
+          <div class="ct">Rabu</div>
+          <div class="row"><span>09.00 — Education thread (X)</span><span class="tag hot">Wajib</span></div>
+          <div class="row"><span>Siang — Substack outline (draft)</span><span class="tag med">Internal</span></div>
+          <div class="ct mtsm">Kamis</div>
+          <div class="row"><span>09.00 — Data drop / commentary (X)</span><span class="tag hot">Wajib</span></div>
+          <div class="row"><span>Sore — Substack writing</span><span class="tag hot">Wajib</span></div>
+        </div>
+      </div>
+      <div class="g2 mtsm">
+        <div>
+          <div class="ct">Jumat</div>
+          <div class="row"><span>09.00 — Weekly recap thread (X)</span><span class="tag hot">Wajib</span></div>
+          <div class="row"><span>12.00 — Substack publish</span><span class="tag hot">Wajib</span></div>
+          <div class="row"><span>Sore — Preview next week</span><span class="tag med">Optional</span></div>
+        </div>
+        <div>
+          <div class="ct">Sabtu / Minggu</div>
+          <div class="row"><span>1 big picture post (X)</span><span class="tag med">Optional</span></div>
+          <div class="row"><span>Read reports &amp; research</span><span class="tag cool">Input time</span></div>
+          <div class="row"><span>Prepare konten minggu depan</span><span class="tag cool">Prep time</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">Event-driven Override — kapan harus publish di luar jadwal</div>
+    <div class="g3">
+      <div class="card">
+        <div class="ct">Publish SEGERA (dalam 30 menit)</div>
+        <div class="row"><span>FOMC decision</span></div>
+        <div class="row"><span>CPI / PCE surprise besar</span></div>
+        <div class="row"><span>BTC crash/pump &gt;10%</span></div>
+        <div class="row"><span>Fed emergency meeting</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">Publish dalam 2-3 Jam</div>
+        <div class="row"><span>NFP data release</span></div>
+        <div class="row"><span>Powell speech key point</span></div>
+        <div class="row"><span>Major crypto news</span></div>
+        <div class="row"><span>ETF approval/rejection</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">Bisa Tunggu Keesokan Hari</div>
+        <div class="row"><span>PMI / JOLTS</span></div>
+        <div class="row"><span>Minor policy update</span></div>
+        <div class="row"><span>Altcoin news</span></div>
+        <div class="row"><span>Data revision</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ GROWTH ══════════════ -->
+  <div class="tf-panel" id="panel-growth">
+
+    <div class="sec">Growth Strategy — cara build audience yang relevan</div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct">X Growth Tactics</div>
+        <div class="viral">
+          <div class="vt">Yang paling viral untuk macro analyst</div>
+          <p>Chart dengan caption singkat yang mengejutkan. Bukan wall of text — satu chart, satu insight, tiga kalimat.</p>
+        </div>
+        <div class="row"><span>Reply ke big accounts dengan value (bukan hanya agree)</span></div>
+        <div class="row"><span>Tag data sources yang kamu pakai (FRED, Glassnode)</span></div>
+        <div class="row"><span>Posting saat market mover event terjadi — kecepatan penting</span></div>
+        <div class="row"><span>Quote tweet berita besar dengan analisa tambahan</span></div>
+        <div class="row"><span>Engage dengan reply yang substantif, bukan "great post"</span></div>
+        <div class="row"><span>Gunakan $BTC $ETH tags dan topik #macro #crypto</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">Substack Growth Tactics</div>
+        <div class="viral">
+          <div class="vt">Cross-promotion yang efektif</div>
+          <p>Setiap thread X, tambahkan "Analisis lengkapnya ada di Substack — link di bio." Konversikan reader X ke subscriber.</p>
+        </div>
+        <div class="row"><span>Publish setiap Jumat jam 12.00 — konsistensi membangun trust</span></div>
+        <div class="row"><span>Subject line newsletter harus seperti headline berita</span></div>
+        <div class="row"><span>Preview 2 paragraf pertama di X untuk drive ke Substack</span></div>
+        <div class="row"><span>Archive semua artikel — ini jadi portfolio kamu</span></div>
+        <div class="row"><span>Guest appearance di podcast — cross-audience</span></div>
+      </div>
+    </div>
+
+    <div class="sec">Differentiation — apa yang membuat kamu berbeda dari ribuan crypto analyst lain</div>
+    <div class="g3">
+      <div class="card">
+        <div class="ct">Keunggulan Teknis</div>
+        <div class="row"><span>Memahami Net Liquidity formula</span><span class="tag cool">Rare</span></div>
+        <div class="row"><span>Bisa jelaskan SOFR-IORB</span><span class="tag cool">Very rare</span></div>
+        <div class="row"><span>Punya Python script untuk S/R heatmap</span><span class="tag cool">Rare</span></div>
+        <div class="row"><span>Memahami Japan carry trade mechanics</span><span class="tag cool">Rare</span></div>
+        <div class="row"><span>Bisa bedah GDP komposisi</span><span class="tag med">Uncommon</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">Keunggulan Komunikasi</div>
+        <div class="row"><span>Bahasa Indonesia — market yang underserved</span><span class="tag hot">Huge opportunity</span></div>
+        <div class="row"><span>Institutional quality, bahasa accessible</span><span class="tag hot">Sweet spot</span></div>
+        <div class="row"><span>Data-driven, bukan opinion saja</span><span class="tag cool">Trust builder</span></div>
+        <div class="row"><span>Jujur soal ketidakpastian</span><span class="tag cool">Credibility</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">Hindari Kesalahan Umum</div>
+        <div class="row"><span>Price prediction dengan angka pasti</span><span class="tag hot">Jangan pernah</span></div>
+        <div class="row"><span>"100% bullish/bearish" tanpa caveat</span><span class="tag hot">Credibility killer</span></div>
+        <div class="row"><span>Copy paste dari report tanpa analisa</span><span class="tag hot">Value destroyer</span></div>
+        <div class="row"><span>Posting tanpa data backing</span><span class="tag med">Hindari</span></div>
+        <div class="row"><span>Terlalu sering posting noise</span><span class="tag med">Kurangi</span></div>
+      </div>
+    </div>
+
+    <div class="sec">Benchmark Realistic — ekspektasi growth yang sehat</div>
+    <div class="scard">
+      <div class="g4">
+        <div>
+          <div class="ct">Bulan 1-3</div>
+          <div class="row"><span>X followers</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent)">100-500</span></div>
+          <div class="row"><span>Substack subs</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent)">50-200</span></div>
+          <div class="row" style="color:var(--t2);font-size:11px"><span>Fokus: consistency &amp; quality</span></div>
+        </div>
+        <div>
+          <div class="ct">Bulan 4-6</div>
+          <div class="row"><span>X followers</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent)">500-2K</span></div>
+          <div class="row"><span>Substack subs</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent)">200-500</span></div>
+          <div class="row" style="color:var(--t2);font-size:11px"><span>Fokus: thread viral pertama</span></div>
+        </div>
+        <div>
+          <div class="ct">Bulan 7-12</div>
+          <div class="row"><span>X followers</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent)">2K-10K</span></div>
+          <div class="row"><span>Substack subs</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent)">500-2K</span></div>
+          <div class="row" style="color:var(--t2);font-size:11px"><span>Fokus: monetization start</span></div>
+        </div>
+        <div>
+          <div class="ct">Tahun 2+</div>
+          <div class="row"><span>X followers</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent)">10K+</span></div>
+          <div class="row"><span>Substack subs</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent)">2K-5K paid</span></div>
+          <div class="row" style="color:var(--t2);font-size:11px"><span>Fokus: brand &amp; career leverage</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Content Strategy — X &amp; Substack · Crypto Macro Analyst · 2025
+</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tf-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
